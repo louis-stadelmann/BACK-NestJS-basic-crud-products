@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  product-api:
+    container_name: product-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+    command: npm run start:dev
+    environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_URI: ${DATABASE_URI}
+      PORT: ${PORT}
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - mongo-api
+      - mongo-api-test
+
+  mongo-api:
+    image: mongo:6.0
+    container_name: mongo-api
+    restart: always
+    ports:
+      - '28027:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: admin
+
+  mongo-api-test:
+    image: mongo:6.0
+    container_name: mongo-api-test
+    restart: always
+    ports:
+      - '28028:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: admin
