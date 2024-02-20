@@ -24,10 +24,10 @@ async function bootstrap() {
   // Swagger configuration
   // http://localhost:4000/api
   const config = new DocumentBuilder()
-    .setTitle('Baback product API')
-    .setDescription('This swagger describe the baback product API')
+    .setTitle('Basic product API')
+    .setDescription('This swagger describe the basic product API')
     .setVersion('1.0')
-    .addTag('baback')
+    .addTag('basic')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
